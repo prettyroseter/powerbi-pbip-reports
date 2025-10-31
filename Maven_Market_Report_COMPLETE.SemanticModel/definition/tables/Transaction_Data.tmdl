@@ -1,0 +1,169 @@
+table Transaction_Data
+	lineageTag: 9b047d4c-5b16-40b0-95b5-e43d9997a420
+
+	measure 'Quantity Sold' = SUM(Transaction_Data[quantity])
+		formatString: 0
+		lineageTag: b207df8b-6ad1-46eb-b29c-c676c5006801
+
+	measure 'Total Transactions' = COUNTROWS(Transaction_Data)
+		formatString: #,0
+		lineageTag: 517880cc-9975-4ac9-950b-370f8b79dab9
+
+	measure 'Weekend Transactions' = CALCULATE([Total Transactions], 'Calendar'[Weekend] = "Y")
+		formatString: 0
+		lineageTag: 7ed4354f-9d09-4e1b-8f13-0ce899451f2d
+
+	measure '% Weekend Transactions' = [Weekend Transactions] / [Total Transactions]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 6ecd7976-13c9-4c20-9120-4c6299c6aa8c
+
+	measure 'All Transactions' = CALCULATE([Total Transactions], ALL(Transaction_Data))
+		formatString: 0
+		lineageTag: 3b869225-3450-4563-8128-a8bbaec49079
+
+	measure 'Total Revenue' = SUMX(Transaction_Data, Transaction_Data[quantity] * RELATED(Products[product_retail_price]))
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 528d198b-df3d-498a-8cb1-191d5b10da4a
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Cost' = SUMX(Transaction_Data, Transaction_Data[quantity] * RELATED(Products[product_cost]))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 8779dc37-7f6b-45ab-b328-3ab142072e64
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Profit' = [Total Revenue] - [Total Cost]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 7c96cc40-3e58-4717-8666-d48f37ea2956
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'YTD Revenue' = CALCULATE([Total Revenue], DATESYTD('Calendar'[date]))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 45961647-6d9f-4b3a-8420-b7eac9535139
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure '60-Day Revenue' = CALCULATE([Total Revenue], DATESINPERIOD('Calendar'[date], MAX('Calendar'[date]),-60,DAY))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 1761c6c1-3186-4531-9e8b-72da2263aa02
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Last Month Revenue' = CALCULATE([Total Revenue], DATEADD('Calendar'[date],-1,MONTH))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 3c2a8475-f4a8-45cb-bfae-11ab0796d998
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue Target' = [Last Month Revenue] * 1.05
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: ae595d54-e7b8-48dd-9ee7-67f5bea1a4c3
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Profit Margin' = [Total Profit] / [Total Revenue]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 58baaa5a-7d68-4000-a8cc-f7380691abfd
+
+	measure 'Last Month Transactions' = CALCULATE([Total Transactions], DATEADD('Calendar'[date],-1,MONTH))
+		formatString: #,0
+		lineageTag: a7cc8526-dc56-445b-89f5-a2613b9c590f
+
+	measure 'Last Month Profit' = CALCULATE([Total Profit], DATEADD('Calendar'[date],-1,MONTH))
+		lineageTag: 8dfc2650-00ba-4e56-8a9a-31f1185a06f8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column transaction_date
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: b623848b-8843-49b7-b770-cc26096068bd
+		summarizeBy: none
+		sourceColumn: transaction_date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column stock_date
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: e798c0f1-dde0-449f-b7d9-d828ee251a7b
+		summarizeBy: none
+		sourceColumn: stock_date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column product_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6ea10b32-c351-44a9-b5b5-4a3a7b25d03e
+		summarizeBy: none
+		sourceColumn: product_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 38b756d9-5520-414f-bfa6-0e7a5d4312c1
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: aa74c810-7412-4632-bc09-9c7d1f2dae99
+		summarizeBy: none
+		sourceColumn: store_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 60b72eba-15b0-4d85-9372-490fb977ece5
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Transaction_Data-85b0ae55-8952-4c57-bf7e-b9e435675519 = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\Chris\Documents\SecondLens\Excel Maven\Udemy\Course 5 - Power BI Desktop\Final Resources\Maven Market\MavenMarket_Transactions"),
+				    #"Invoke Custom Function1" = Table.AddColumn(Source, "Transform File from MavenMarket_Transactions", each #"Transform File from MavenMarket_Transactions"([Content])),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Invoke Custom Function1", {"Name", "Source.Name"}),
+				    #"Removed Other Columns1" = Table.SelectColumns(#"Renamed Columns1", {"Source.Name", "Transform File from MavenMarket_Transactions"}),
+				    #"Expanded Table Column1" = Table.ExpandTableColumn(#"Removed Other Columns1", "Transform File from MavenMarket_Transactions", Table.ColumnNames(#"Transform File from MavenMarket_Transactions"(#"Sample File"))),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Table Column1",{{"Source.Name", type text}, {"transaction_date", type date}, {"stock_date", type date}, {"product_id", Int64.Type}, {"customer_id", Int64.Type}, {"store_id", Int64.Type}, {"quantity", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Source.Name"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

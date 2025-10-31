@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "2a5dfbd4a58cb5d1da61",
+  "position": {
+    "x": 210.24491733690797,
+    "y": 172.03931384048258,
+    "z": 0,
+    "height": 74.3521000893655,
+    "width": 899.08847184986587
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Portland ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontStyle": "italic",
+                      "fontSize": "21pt"
+                    }
+                  },
+                  {
+                    "value": "reached ",
+                    "textStyle": {
+                      "fontStyle": "italic",
+                      "fontSize": "21pt"
+                    }
+                  },
+                  {
+                    "value": "1,000 sales",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontStyle": "italic",
+                      "fontSize": "21pt"
+                    }
+                  },
+                  {
+                    "value": " in December to close out the year",
+                    "textStyle": {
+                      "fontStyle": "italic",
+                      "fontSize": "21pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
