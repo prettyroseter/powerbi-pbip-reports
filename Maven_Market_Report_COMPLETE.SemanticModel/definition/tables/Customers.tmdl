@@ -1,11 +1,11 @@
 table Customers
 	excludeFromModelRefresh
-	lineageTag: 66ea6cd0-afd9-4cee-ba4a-605c31b593bf
+	lineageTag: e3eb8f61-41b6-4559-82db-c4c9fdb07fee
 
 	column customer_id
 		dataType: int64
 		formatString: 0
-		lineageTag: 363d812a-6416-4ebb-a4ab-67d837d8b6cf
+		lineageTag: 925d0858-12a5-49ba-840e-93bfa5f6e25d
 		summarizeBy: none
 		sourceColumn: customer_id
 
@@ -13,7 +13,7 @@ table Customers
 
 	column customer_acct_num
 		dataType: string
-		lineageTag: ca06e57c-3342-4409-acc3-dee621a29e42
+		lineageTag: a4e7f47a-dd2a-4322-99e8-03a673927616
 		summarizeBy: none
 		sourceColumn: customer_acct_num
 
@@ -23,7 +23,7 @@ table Customers
 
 	column first_name
 		dataType: string
-		lineageTag: f7810813-8f69-434e-b5ee-75199e85d8cd
+		lineageTag: f5aa62fa-230c-4620-a5d0-638858dee535
 		summarizeBy: none
 		sourceColumn: first_name
 
@@ -33,7 +33,7 @@ table Customers
 
 	column last_name
 		dataType: string
-		lineageTag: e0cc5c00-0a5f-4b96-9ca0-dc9a2a5e9a35
+		lineageTag: 9d97f77f-976b-43b4-9d33-57ade5f6ea9c
 		summarizeBy: none
 		sourceColumn: last_name
 
@@ -43,7 +43,7 @@ table Customers
 
 	column customer_address
 		dataType: string
-		lineageTag: 5fadbfb3-4689-4aa8-b9c6-bbffa6bdffe9
+		lineageTag: 34324ee9-c311-4fb4-b669-5556f44b3b70
 		summarizeBy: none
 		sourceColumn: customer_address
 
@@ -53,7 +53,7 @@ table Customers
 
 	column customer_city
 		dataType: string
-		lineageTag: b038fdaf-9114-46e3-89ad-4785a75d75e9
+		lineageTag: 20474a02-bbf0-457e-886f-6ad6001b1464
 		dataCategory: City
 		summarizeBy: none
 		sourceColumn: customer_city
@@ -64,7 +64,7 @@ table Customers
 
 	column customer_state_province
 		dataType: string
-		lineageTag: 054cfe13-0969-4752-a95f-2309cafa072c
+		lineageTag: b729aae4-e454-4099-b419-b35d068a82b3
 		summarizeBy: none
 		sourceColumn: customer_state_province
 
@@ -74,7 +74,7 @@ table Customers
 
 	column customer_postal_code
 		dataType: string
-		lineageTag: bfa302c1-3626-4234-8d27-3c7816908d70
+		lineageTag: 6839ab6f-3453-41c5-877b-60977082cb0e
 		dataCategory: PostalCode
 		summarizeBy: none
 		sourceColumn: customer_postal_code
@@ -85,7 +85,7 @@ table Customers
 
 	column customer_country
 		dataType: string
-		lineageTag: 27cb984c-f434-4ef8-9991-606bff11441b
+		lineageTag: 2938b326-eed9-47a5-a994-71f9ea30a967
 		dataCategory: Country
 		summarizeBy: none
 		sourceColumn: customer_country
@@ -97,7 +97,7 @@ table Customers
 	column birthdate
 		dataType: dateTime
 		formatString: Short Date
-		lineageTag: 67855a9f-523f-4825-8495-f4f42593b8ba
+		lineageTag: 70dc0eba-c585-4f15-9887-be2797aa2b79
 		summarizeBy: none
 		sourceColumn: birthdate
 
@@ -112,7 +112,7 @@ table Customers
 
 	column marital_status
 		dataType: string
-		lineageTag: a64e3221-4564-4276-ad58-b8cb860d7f1f
+		lineageTag: 17223c91-8db5-40b3-b95a-609f260b4eba
 		summarizeBy: none
 		sourceColumn: marital_status
 
@@ -122,7 +122,7 @@ table Customers
 
 	column yearly_income
 		dataType: string
-		lineageTag: 945b6356-e117-46ba-bd77-2b14f707b00d
+		lineageTag: 4e94f7c5-4ab5-4f09-a140-a29c1934e75a
 		summarizeBy: none
 		sourceColumn: yearly_income
 
@@ -132,7 +132,7 @@ table Customers
 
 	column gender
 		dataType: string
-		lineageTag: d386ac9f-eadf-4724-b99f-75929e40689a
+		lineageTag: e6bb7b9c-7b6f-4b33-9ab4-ef9f30439794
 		summarizeBy: none
 		sourceColumn: gender
 
@@ -143,7 +143,7 @@ table Customers
 	column total_children
 		dataType: int64
 		formatString: 0
-		lineageTag: 7e969c9c-2147-4264-b2f8-8e693f7addaa
+		lineageTag: 0108c92e-206e-49fc-9346-9e434bc6c8fd
 		summarizeBy: sum
 		sourceColumn: total_children
 
@@ -152,7 +152,7 @@ table Customers
 	column num_children_at_home
 		dataType: int64
 		formatString: 0
-		lineageTag: 5c330b01-8f35-46db-a092-b13999d486c3
+		lineageTag: 06c36e1c-dd41-4885-928d-23d9a05b04a9
 		summarizeBy: sum
 		sourceColumn: num_children_at_home
 
@@ -160,7 +160,7 @@ table Customers
 
 	column education
 		dataType: string
-		lineageTag: 87366a5b-3049-4370-8f94-855106389df9
+		lineageTag: 1aa37d97-079b-43c8-80e4-1c08b5569bc3
 		summarizeBy: none
 		sourceColumn: education
 
@@ -171,7 +171,7 @@ table Customers
 	column acct_open_date
 		dataType: dateTime
 		formatString: Short Date
-		lineageTag: 4f321004-1c31-41b2-8310-40c64ad77c52
+		lineageTag: faec5ebd-fb7d-474d-930a-3727e16b90e6
 		summarizeBy: none
 		sourceColumn: acct_open_date
 
@@ -186,7 +186,7 @@ table Customers
 
 	column member_card
 		dataType: string
-		lineageTag: 29ebdfca-b773-4d60-81fa-44aa0911582e
+		lineageTag: 9935fb38-0a91-47ac-81c9-9b3a878ef631
 		summarizeBy: none
 		sourceColumn: member_card
 
@@ -196,7 +196,7 @@ table Customers
 
 	column occupation
 		dataType: string
-		lineageTag: 6c67b69a-d386-4c05-a816-a80fa4e9e8ef
+		lineageTag: a1be66b9-9e0d-4da3-b154-0c7eee0ad9d9
 		summarizeBy: none
 		sourceColumn: occupation
 
@@ -206,7 +206,7 @@ table Customers
 
 	column homeowner
 		dataType: string
-		lineageTag: 7bd814c5-1d03-4843-b94c-a0210792c7b6
+		lineageTag: 427041d7-ca05-4e1b-ae1f-4eeee637e29e
 		summarizeBy: none
 		sourceColumn: homeowner
 
@@ -216,7 +216,7 @@ table Customers
 
 	column full_name
 		dataType: string
-		lineageTag: f8c1ca28-d987-4e3f-b133-233ab91d0672
+		lineageTag: 018b87bb-ee11-4d9b-ab18-92b573c0c316
 		summarizeBy: none
 		sourceColumn: full_name
 
@@ -227,7 +227,7 @@ table Customers
 	column birth_year
 		dataType: int64
 		formatString: 0
-		lineageTag: b871ee9e-23f1-4282-9d01-80e2695c2964
+		lineageTag: 105ae2c6-2173-4ceb-81ac-65cf75e99805
 		summarizeBy: sum
 		sourceColumn: birth_year
 
@@ -235,7 +235,7 @@ table Customers
 
 	column has_children
 		dataType: string
-		lineageTag: cb1e25a2-ca9f-4744-a3e9-ff29a4bf8df6
+		lineageTag: 1b9381d2-933a-4d62-8519-30d419022632
 		summarizeBy: none
 		sourceColumn: has_children
 
@@ -245,13 +245,13 @@ table Customers
 
 	column Current_Age = DATEDIFF(Customers[birthdate],TODAY(),YEAR)
 		formatString: 0
-		lineageTag: 3a5e2f58-401a-4bd6-89d6-2c2f07b76af3
+		lineageTag: 5556bc91-e710-4178-a25b-2e1079ed745c
 		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
 
 	column Priority = IF(Customers[member_card] = "Golden" && Customers[homeowner] = "Y","High","Standard")
-		lineageTag: 5a63a17d-a4ba-4b36-87a8-2dd99b7261a7
+		lineageTag: 5fd4df37-d4b5-45db-8e05-01f626693be8
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
@@ -259,7 +259,7 @@ table Customers
 		annotation PBI_FormatHint = {"isText":true}
 
 	column Short_Country = UPPER(LEFT(Customers[customer_country],3))
-		lineageTag: 16217273-9d40-43bb-aaf5-c40996959d54
+		lineageTag: 131b2289-4dd6-4197-aa30-b72e3b20c2be
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
@@ -267,7 +267,7 @@ table Customers
 		annotation PBI_FormatHint = {"isText":true}
 
 	column House_Number = LEFT(Customers[customer_address], SEARCH(" ", Customers[customer_address])-1)
-		lineageTag: 3cb71163-e6bc-4931-a591-0e43b3d54c83
+		lineageTag: 01a40afa-dc32-4420-baad-b4c9c124b9fc
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic

@@ -1,0 +1,235 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/unappliedChanges/1.0.0/schema.json",
+  "conceptualSchemaSettings": {},
+  "queries": [
+    {
+      "name": "Customers",
+      "lineageTag": "e3eb8f61-41b6-4559-82db-c4c9fdb07fee",
+      "navigationStepName": "Navigation",
+      "refreshWhenRefreshingAll": false,
+      "text": [
+        "let",
+        "    Source = Csv.Document(File.Contents(\"C:\\Users\\Chris\\Documents\\SecondLens\\Excel Maven\\Udemy\\Course 5 - Power BI Desktop\\Final Resources\\Maven Market\\MavenMarket_Customers.csv\"),[Delimiter=\",\", Columns=20, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"customer_id\", Int64.Type}, {\"customer_acct_num\", type text}, {\"first_name\", type text}, {\"last_name\", type text}, {\"customer_address\", type text}, {\"customer_city\", type text}, {\"customer_state_province\", type text}, {\"customer_postal_code\", type text}, {\"customer_country\", type text}, {\"birthdate\", type date}, {\"marital_status\", type text}, {\"yearly_income\", type text}, {\"gender\", type text}, {\"total_children\", Int64.Type}, {\"num_children_at_home\", Int64.Type}, {\"education\", type text}, {\"acct_open_date\", type date}, {\"member_card\", type text}, {\"occupation\", type text}, {\"homeowner\", type text}}),",
+        "    #\"Inserted Merged Column\" = Table.AddColumn(#\"Changed Type\", \"full_name\", each Text.Combine({[first_name], [last_name]}, \" \"), type text),",
+        "    #\"Inserted Year\" = Table.AddColumn(#\"Inserted Merged Column\", \"Year\", each Date.Year([birthdate]), Int64.Type),",
+        "    #\"Renamed Columns\" = Table.RenameColumns(#\"Inserted Year\",{{\"Year\", \"birth_year\"}}),",
+        "    #\"Added Conditional Column\" = Table.AddColumn(#\"Renamed Columns\", \"has_children\", each if [total_children] = 0 then \"N\" else \"Y\")",
+        "in",
+        "    #\"Added Conditional Column\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Csv.Document(File.Contents(\\\"C:\\\\Users\\\\Chris\\\\Documents\\\\SecondLens\\\\Excel Maven\\\\Udemy\\\\Course 5 - Power BI Desktop\\\\Final Resources\\\\Maven Market\\\\MavenMarket_Customers.csv\\\"),[Delimiter=\\\",\\\", Columns=20, Encoding=1252, QuoteStyle=QuoteStyle.None]),\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"customer_id\\\", Int64.Type}, {\\\"customer_acct_num\\\", type text}, {\\\"first_name\\\", type text}, {\\\"last_name\\\", type text}, {\\\"customer_address\\\", type text}, {\\\"customer_city\\\", type text}, {\\\"customer_state_province\\\", type text}, {\\\"customer_postal_code\\\", type text}, {\\\"customer_country\\\", type text}, {\\\"birthdate\\\", type date}, {\\\"marital_status\\\", type text}, {\\\"yearly_income\\\", type text}, {\\\"gender\\\", type text}, {\\\"total_children\\\", Int64.Type}, {\\\"num_children_at_home\\\", Int64.Type}, {\\\"education\\\", type text}, {\\\"acct_open_date\\\", type date}, {\\\"member_card\\\", type text}, {\\\"occupation\\\", type text}, {\\\"homeowner\\\", type text}}),\\n    #\\\"Inserted Merged Column\\\" = Table.AddColumn(#\\\"Changed Type\\\", \\\"full_name\\\", each Text.Combine({[first_name], [last_name]}, \\\" \\\"), type text),\\n    #\\\"Inserted Year\\\" = Table.AddColumn(#\\\"Inserted Merged Column\\\", \\\"Year\\\", each Date.Year([birthdate]), Int64.Type),\\n    #\\\"Renamed Columns\\\" = Table.RenameColumns(#\\\"Inserted Year\\\",{{\\\"Year\\\", \\\"birth_year\\\"}}),\\n    #\\\"Added Conditional Column\\\" = Table.AddColumn(#\\\"Renamed Columns\\\", \\\"has_children\\\", each if [total_children] = 0 then \\\"N\\\" else \\\"Y\\\")\\nin\\n    #\\\"Added Conditional Column\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "Products",
+      "lineageTag": "88b38a33-9696-4dac-b60f-dc71cdd33b60",
+      "navigationStepName": "Navigation",
+      "refreshWhenRefreshingAll": false,
+      "text": [
+        "let",
+        "    Source = Csv.Document(File.Contents(\"C:\\Users\\Chris\\Documents\\SecondLens\\Excel Maven\\Udemy\\Course 5 - Power BI Desktop\\Final Resources\\Maven Market\\MavenMarket_Products.csv\"),[Delimiter=\",\", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"product_id\", Int64.Type}, {\"product_brand\", type text}, {\"product_name\", type text}, {\"product_sku\", type number}, {\"product_retail_price\", type number}, {\"product_cost\", type number}, {\"product_weight\", type number}, {\"recyclable\", Int64.Type}, {\"low_fat\", Int64.Type}}),",
+        "    #\"Inserted Multiplication\" = Table.AddColumn(#\"Changed Type\", \"Multiplication\", each [product_retail_price] * 0.9, type number),",
+        "    #\"Renamed Columns\" = Table.RenameColumns(#\"Inserted Multiplication\",{{\"Multiplication\", \"discount_price\"}}),",
+        "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Renamed Columns\",{{\"discount_price\", Currency.Type}}),",
+        "    #\"Rounded Off\" = Table.TransformColumns(#\"Changed Type1\",{{\"discount_price\", each Number.Round(_, 2), Currency.Type}}),",
+        "    #\"Replaced Value\" = Table.ReplaceValue(#\"Rounded Off\",null,0,Replacer.ReplaceValue,{\"recyclable\"}),",
+        "    #\"Replaced Value1\" = Table.ReplaceValue(#\"Replaced Value\",null,0,Replacer.ReplaceValue,{\"low_fat\"})",
+        "in",
+        "    #\"Replaced Value1\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Csv.Document(File.Contents(\\\"C:\\\\Users\\\\Chris\\\\Documents\\\\SecondLens\\\\Excel Maven\\\\Udemy\\\\Course 5 - Power BI Desktop\\\\Final Resources\\\\Maven Market\\\\MavenMarket_Products.csv\\\"),[Delimiter=\\\",\\\", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"product_id\\\", Int64.Type}, {\\\"product_brand\\\", type text}, {\\\"product_name\\\", type text}, {\\\"product_sku\\\", type number}, {\\\"product_retail_price\\\", type number}, {\\\"product_cost\\\", type number}, {\\\"product_weight\\\", type number}, {\\\"recyclable\\\", Int64.Type}, {\\\"low_fat\\\", Int64.Type}}),\\n    #\\\"Inserted Multiplication\\\" = Table.AddColumn(#\\\"Changed Type\\\", \\\"Multiplication\\\", each [product_retail_price] * 0.9, type number),\\n    #\\\"Renamed Columns\\\" = Table.RenameColumns(#\\\"Inserted Multiplication\\\",{{\\\"Multiplication\\\", \\\"discount_price\\\"}}),\\n    #\\\"Changed Type1\\\" = Table.TransformColumnTypes(#\\\"Renamed Columns\\\",{{\\\"discount_price\\\", Currency.Type}}),\\n    #\\\"Rounded Off\\\" = Table.TransformColumns(#\\\"Changed Type1\\\",{{\\\"discount_price\\\", each Number.Round(_, 2), Currency.Type}}),\\n    #\\\"Replaced Value\\\" = Table.ReplaceValue(#\\\"Rounded Off\\\",null,0,Replacer.ReplaceValue,{\\\"recyclable\\\"}),\\n    #\\\"Replaced Value1\\\" = Table.ReplaceValue(#\\\"Replaced Value\\\",null,0,Replacer.ReplaceValue,{\\\"low_fat\\\"})\\nin\\n    #\\\"Replaced Value1\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "Stores",
+      "lineageTag": "ea6d48dd-9dc5-4311-91ed-f70707f5c9df",
+      "navigationStepName": "Navigation",
+      "refreshWhenRefreshingAll": false,
+      "text": [
+        "let",
+        "    Source = Csv.Document(File.Contents(\"C:\\Users\\Chris\\Documents\\SecondLens\\Excel Maven\\Udemy\\Course 5 - Power BI Desktop\\Final Resources\\Maven Market\\MavenMarket_Stores.csv\"),[Delimiter=\",\", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"store_id\", Int64.Type}, {\"region_id\", Int64.Type}, {\"store_type\", type text}, {\"store_name\", type text}, {\"store_street_address\", type text}, {\"store_city\", type text}, {\"store_state\", type text}, {\"store_country\", type text}, {\"store_phone\", type text}, {\"first_opened_date\", type date}, {\"last_remodel_date\", type date}, {\"total_sqft\", Int64.Type}, {\"grocery_sqft\", Int64.Type}}),",
+        "    #\"Inserted Merged Column\" = Table.AddColumn(#\"Changed Type\", \"full_address\", each Text.Combine({[store_street_address], [store_city], [store_state]}, \", \"), type text),",
+        "    #\"Inserted Text Before Delimiter\" = Table.AddColumn(#\"Inserted Merged Column\", \"Text Before Delimiter\", each Text.BeforeDelimiter([store_phone], \"-\"), type text),",
+        "    #\"Renamed Columns\" = Table.RenameColumns(#\"Inserted Text Before Delimiter\",{{\"Text Before Delimiter\", \"area_code\"}})",
+        "in",
+        "    #\"Renamed Columns\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Csv.Document(File.Contents(\\\"C:\\\\Users\\\\Chris\\\\Documents\\\\SecondLens\\\\Excel Maven\\\\Udemy\\\\Course 5 - Power BI Desktop\\\\Final Resources\\\\Maven Market\\\\MavenMarket_Stores.csv\\\"),[Delimiter=\\\",\\\", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"store_id\\\", Int64.Type}, {\\\"region_id\\\", Int64.Type}, {\\\"store_type\\\", type text}, {\\\"store_name\\\", type text}, {\\\"store_street_address\\\", type text}, {\\\"store_city\\\", type text}, {\\\"store_state\\\", type text}, {\\\"store_country\\\", type text}, {\\\"store_phone\\\", type text}, {\\\"first_opened_date\\\", type date}, {\\\"last_remodel_date\\\", type date}, {\\\"total_sqft\\\", Int64.Type}, {\\\"grocery_sqft\\\", Int64.Type}}),\\n    #\\\"Inserted Merged Column\\\" = Table.AddColumn(#\\\"Changed Type\\\", \\\"full_address\\\", each Text.Combine({[store_street_address], [store_city], [store_state]}, \\\", \\\"), type text),\\n    #\\\"Inserted Text Before Delimiter\\\" = Table.AddColumn(#\\\"Inserted Merged Column\\\", \\\"Text Before Delimiter\\\", each Text.BeforeDelimiter([store_phone], \\\"-\\\"), type text),\\n    #\\\"Renamed Columns\\\" = Table.RenameColumns(#\\\"Inserted Text Before Delimiter\\\",{{\\\"Text Before Delimiter\\\", \\\"area_code\\\"}})\\nin\\n    #\\\"Renamed Columns\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "Regions",
+      "lineageTag": "5d7429f8-6ff5-468b-a208-1873ebb70654",
+      "navigationStepName": "Navigation",
+      "refreshWhenRefreshingAll": false,
+      "text": [
+        "let",
+        "    Source = Csv.Document(File.Contents(\"C:\\Users\\Chris\\Documents\\SecondLens\\Excel Maven\\Udemy\\Course 5 - Power BI Desktop\\Final Resources\\Maven Market\\MavenMarket_Regions.csv\"),[Delimiter=\",\", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"region_id\", Int64.Type}, {\"sales_district\", type text}, {\"sales_region\", type text}})",
+        "in",
+        "    #\"Changed Type\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Csv.Document(File.Contents(\\\"C:\\\\Users\\\\Chris\\\\Documents\\\\SecondLens\\\\Excel Maven\\\\Udemy\\\\Course 5 - Power BI Desktop\\\\Final Resources\\\\Maven Market\\\\MavenMarket_Regions.csv\\\"),[Delimiter=\\\",\\\", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"region_id\\\", Int64.Type}, {\\\"sales_district\\\", type text}, {\\\"sales_region\\\", type text}})\\nin\\n    #\\\"Changed Type\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "Calendar",
+      "lineageTag": "1c1a71bb-0015-435d-b466-ef62d080219f",
+      "navigationStepName": "Navigation",
+      "refreshWhenRefreshingAll": false,
+      "text": [
+        "let",
+        "    Source = Csv.Document(File.Contents(\"C:\\Users\\Chris\\Documents\\SecondLens\\Excel Maven\\Udemy\\Course 5 - Power BI Desktop\\Final Resources\\Maven Market\\MavenMarket_Calendar.csv\"),[Delimiter=\",\", Columns=1, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"date\", type date}}),",
+        "    #\"Inserted Start of Week\" = Table.AddColumn(#\"Changed Type\", \"Start of Week\", each Date.StartOfWeek([date]), type date),",
+        "    #\"Inserted Day Name\" = Table.AddColumn(#\"Inserted Start of Week\", \"Day Name\", each Date.DayOfWeekName([date]), type text),",
+        "    #\"Inserted Start of Month\" = Table.AddColumn(#\"Inserted Day Name\", \"Start of Month\", each Date.StartOfMonth([date]), type date),",
+        "    #\"Inserted Month Name\" = Table.AddColumn(#\"Inserted Start of Month\", \"Month Name\", each Date.MonthName([date]), type text),",
+        "    #\"Inserted Quarter\" = Table.AddColumn(#\"Inserted Month Name\", \"Quarter\", each Date.QuarterOfYear([date]), Int64.Type),",
+        "    #\"Inserted Year\" = Table.AddColumn(#\"Inserted Quarter\", \"Year\", each Date.Year([date]), Int64.Type)",
+        "in",
+        "    #\"Inserted Year\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Csv.Document(File.Contents(\\\"C:\\\\Users\\\\Chris\\\\Documents\\\\SecondLens\\\\Excel Maven\\\\Udemy\\\\Course 5 - Power BI Desktop\\\\Final Resources\\\\Maven Market\\\\MavenMarket_Calendar.csv\\\"),[Delimiter=\\\",\\\", Columns=1, Encoding=1252, QuoteStyle=QuoteStyle.None]),\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"date\\\", type date}}),\\n    #\\\"Inserted Start of Week\\\" = Table.AddColumn(#\\\"Changed Type\\\", \\\"Start of Week\\\", each Date.StartOfWeek([date]), type date),\\n    #\\\"Inserted Day Name\\\" = Table.AddColumn(#\\\"Inserted Start of Week\\\", \\\"Day Name\\\", each Date.DayOfWeekName([date]), type text),\\n    #\\\"Inserted Start of Month\\\" = Table.AddColumn(#\\\"Inserted Day Name\\\", \\\"Start of Month\\\", each Date.StartOfMonth([date]), type date),\\n    #\\\"Inserted Month Name\\\" = Table.AddColumn(#\\\"Inserted Start of Month\\\", \\\"Month Name\\\", each Date.MonthName([date]), type text),\\n    #\\\"Inserted Quarter\\\" = Table.AddColumn(#\\\"Inserted Month Name\\\", \\\"Quarter\\\", each Date.QuarterOfYear([date]), Int64.Type),\\n    #\\\"Inserted Year\\\" = Table.AddColumn(#\\\"Inserted Quarter\\\", \\\"Year\\\", each Date.Year([date]), Int64.Type)\\nin\\n    #\\\"Inserted Year\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "Return_Data",
+      "lineageTag": "c2dec22f-0a2e-4103-a4b6-75b92401d512",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Csv.Document(File.Contents(\"C:\\Users\\Chris\\Documents\\SecondLens\\Excel Maven\\Udemy\\Course 5 - Power BI Desktop\\Final Resources\\Maven Market\\MavenMarket_Returns_1997-1998.csv\"),[Delimiter=\",\", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"return_date\", type date}, {\"product_id\", Int64.Type}, {\"store_id\", Int64.Type}, {\"quantity\", Int64.Type}})",
+        "in",
+        "    #\"Changed Type\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Csv.Document(File.Contents(\\\"C:\\\\Users\\\\Chris\\\\Documents\\\\SecondLens\\\\Excel Maven\\\\Udemy\\\\Course 5 - Power BI Desktop\\\\Final Resources\\\\Maven Market\\\\MavenMarket_Returns_1997-1998.csv\\\"),[Delimiter=\\\",\\\", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"return_date\\\", type date}, {\\\"product_id\\\", Int64.Type}, {\\\"store_id\\\", Int64.Type}, {\\\"quantity\\\", Int64.Type}})\\nin\\n    #\\\"Changed Type\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "Transaction_Data",
+      "lineageTag": "f7c33202-ac8e-4704-afb7-d4acd4b228bf",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Folder.Files(\"C:\\Users\\Chris\\Documents\\SecondLens\\Excel Maven\\Udemy\\Course 5 - Power BI Desktop\\Final Resources\\Maven Market\\MavenMarket_Transactions\"),",
+        "    #\"Invoke Custom Function1\" = Table.AddColumn(Source, \"Transform File from MavenMarket_Transactions\", each #\"Transform File from MavenMarket_Transactions\"([Content])),",
+        "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Invoke Custom Function1\", {\"Name\", \"Source.Name\"}),",
+        "    #\"Removed Other Columns1\" = Table.SelectColumns(#\"Renamed Columns1\", {\"Source.Name\", \"Transform File from MavenMarket_Transactions\"}),",
+        "    #\"Expanded Table Column1\" = Table.ExpandTableColumn(#\"Removed Other Columns1\", \"Transform File from MavenMarket_Transactions\", Table.ColumnNames(#\"Transform File from MavenMarket_Transactions\"(#\"Sample File\"))),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Expanded Table Column1\",{{\"Source.Name\", type text}, {\"transaction_date\", type date}, {\"stock_date\", type date}, {\"product_id\", Int64.Type}, {\"customer_id\", Int64.Type}, {\"store_id\", Int64.Type}, {\"quantity\", Int64.Type}}),",
+        "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Source.Name\"})",
+        "in",
+        "    #\"Removed Columns\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Folder.Files(\\\"C:\\\\Users\\\\Chris\\\\Documents\\\\SecondLens\\\\Excel Maven\\\\Udemy\\\\Course 5 - Power BI Desktop\\\\Final Resources\\\\Maven Market\\\\MavenMarket_Transactions\\\"),\\n    #\\\"Invoke Custom Function1\\\" = Table.AddColumn(Source, \\\"Transform File from MavenMarket_Transactions\\\", each #\\\"Transform File from MavenMarket_Transactions\\\"([Content])),\\n    #\\\"Renamed Columns1\\\" = Table.RenameColumns(#\\\"Invoke Custom Function1\\\", {\\\"Name\\\", \\\"Source.Name\\\"}),\\n    #\\\"Removed Other Columns1\\\" = Table.SelectColumns(#\\\"Renamed Columns1\\\", {\\\"Source.Name\\\", \\\"Transform File from MavenMarket_Transactions\\\"}),\\n    #\\\"Expanded Table Column1\\\" = Table.ExpandTableColumn(#\\\"Removed Other Columns1\\\", \\\"Transform File from MavenMarket_Transactions\\\", Table.ColumnNames(#\\\"Transform File from MavenMarket_Transactions\\\"(#\\\"Sample File\\\"))),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Expanded Table Column1\\\",{{\\\"Source.Name\\\", type text}, {\\\"transaction_date\\\", type date}, {\\\"stock_date\\\", type date}, {\\\"product_id\\\", Int64.Type}, {\\\"customer_id\\\", Int64.Type}, {\\\"store_id\\\", Int64.Type}, {\\\"quantity\\\", Int64.Type}}),\\n    #\\\"Removed Columns\\\" = Table.RemoveColumns(#\\\"Changed Type\\\",{\\\"Source.Name\\\"})\\nin\\n    #\\\"Removed Columns\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "Sample File",
+      "lineageTag": "b95bd90d-4315-423d-bbb4-423d94a7a0bf",
+      "queryGroupId": "4b9b709a-4e56-406a-af3a-a3359282b5ba",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Folder.Files(\"C:\\Users\\Chris\\Documents\\SecondLens\\Excel Maven\\Udemy\\Course 5 - Power BI Desktop\\Final Resources\\Maven Market\\MavenMarket_Transactions\"),",
+        "    Navigation1 = Source{0}[Content]",
+        "in",
+        "    Navigation1"
+      ],
+      "loadAsTableDisabled": true,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "Sample File Parameter1",
+      "lineageTag": "c4f721b9-2fc4-4d4e-9301-1b483c5947ee",
+      "queryGroupId": "4b9b709a-4e56-406a-af3a-a3359282b5ba",
+      "text": [
+        "#\"Sample File\" meta [IsParameterQuery=true, BinaryIdentifier=#\"Sample File\", Type=\"Binary\", IsParameterQueryRequired=true]"
+      ],
+      "loadAsTableDisabled": true,
+      "resultType": "Binary",
+      "isHidden": false
+    },
+    {
+      "name": "Transform Sample File from MavenMarket_Transactions",
+      "lineageTag": "3cfbb432-bcf4-4b5a-bc17-357ff746b88d",
+      "queryGroupId": "79acc570-2d01-41ae-a17a-87fcc9371a90",
+      "text": [
+        "let",
+        "    Source = Csv.Document(#\"Sample File Parameter1\",[Delimiter=\",\", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+        "in",
+        "    #\"Promoted Headers\""
+      ],
+      "loadAsTableDisabled": true,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "Transform File from MavenMarket_Transactions",
+      "lineageTag": "96411aab-3015-446e-bd48-d67923e8f99b",
+      "queryGroupId": "79acc570-2d01-41ae-a17a-87fcc9371a90",
+      "text": [
+        "let",
+        "    Source = (#\"Sample File Parameter1\" as binary) => let",
+        "    Source = Csv.Document(#\"Sample File Parameter1\",[Delimiter=\",\", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])",
+        "in",
+        "    #\"Promoted Headers\"",
+        "in",
+        "    Source"
+      ],
+      "loadAsTableDisabled": true,
+      "resultType": "Function",
+      "isHidden": false
+    }
+  ],
+  "queryGroups": [
+    {
+      "name": "Transform File from MavenMarket_Transactions",
+      "id": "79acc570-2d01-41ae-a17a-87fcc9371a90",
+      "description": ""
+    },
+    {
+      "name": "Sample Query",
+      "id": "4b9b709a-4e56-406a-af3a-a3359282b5ba",
+      "description": "",
+      "parentId": "79acc570-2d01-41ae-a17a-87fcc9371a90"
+    }
+  ],
+  "culture": "en-US",
+  "firewallEnabled": true
+}

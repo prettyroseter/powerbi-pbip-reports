@@ -1,78 +1,78 @@
 table Transaction_Data
-	lineageTag: 9b047d4c-5b16-40b0-95b5-e43d9997a420
+	lineageTag: f7c33202-ac8e-4704-afb7-d4acd4b228bf
 
 	measure 'Quantity Sold' = SUM(Transaction_Data[quantity])
 		formatString: 0
-		lineageTag: b207df8b-6ad1-46eb-b29c-c676c5006801
+		lineageTag: 6c405628-55a0-40fc-81f3-c45f7f70741b
 
 	measure 'Total Transactions' = COUNTROWS(Transaction_Data)
 		formatString: #,0
-		lineageTag: 517880cc-9975-4ac9-950b-370f8b79dab9
+		lineageTag: f86d9b21-ec4d-445f-853a-e4b5efa614d9
 
 	measure 'Weekend Transactions' = CALCULATE([Total Transactions], 'Calendar'[Weekend] = "Y")
 		formatString: 0
-		lineageTag: 7ed4354f-9d09-4e1b-8f13-0ce899451f2d
+		lineageTag: 6aeb3e88-4477-4ad5-9158-759cde5aab79
 
 	measure '% Weekend Transactions' = [Weekend Transactions] / [Total Transactions]
 		formatString: 0.00%;-0.00%;0.00%
-		lineageTag: 6ecd7976-13c9-4c20-9120-4c6299c6aa8c
+		lineageTag: 389c5456-aed9-4cfe-81eb-2a012b344358
 
 	measure 'All Transactions' = CALCULATE([Total Transactions], ALL(Transaction_Data))
 		formatString: 0
-		lineageTag: 3b869225-3450-4563-8128-a8bbaec49079
+		lineageTag: dea5e72c-1f2c-4c8e-838a-14d387321745
 
 	measure 'Total Revenue' = SUMX(Transaction_Data, Transaction_Data[quantity] * RELATED(Products[product_retail_price]))
 		formatString: \$#,0;(\$#,0);\$#,0
-		lineageTag: 528d198b-df3d-498a-8cb1-191d5b10da4a
+		lineageTag: 05de6561-0439-45e7-ad61-d8f733abc673
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'Total Cost' = SUMX(Transaction_Data, Transaction_Data[quantity] * RELATED(Products[product_cost]))
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
-		lineageTag: 8779dc37-7f6b-45ab-b328-3ab142072e64
+		lineageTag: e6e61e4c-778e-45a1-9c99-9cb04f656288
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'Total Profit' = [Total Revenue] - [Total Cost]
 		formatString: \$#,0;(\$#,0);\$#,0
-		lineageTag: 7c96cc40-3e58-4717-8666-d48f37ea2956
+		lineageTag: a0cda1d3-d33b-4455-9441-57246e675686
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'YTD Revenue' = CALCULATE([Total Revenue], DATESYTD('Calendar'[date]))
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
-		lineageTag: 45961647-6d9f-4b3a-8420-b7eac9535139
+		lineageTag: eb5664de-34a2-4bf8-9a5a-a0168445d1af
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure '60-Day Revenue' = CALCULATE([Total Revenue], DATESINPERIOD('Calendar'[date], MAX('Calendar'[date]),-60,DAY))
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
-		lineageTag: 1761c6c1-3186-4531-9e8b-72da2263aa02
+		lineageTag: 0f0ce953-92ca-4ca8-872f-c1f9c8d77f3c
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'Last Month Revenue' = CALCULATE([Total Revenue], DATEADD('Calendar'[date],-1,MONTH))
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
-		lineageTag: 3c2a8475-f4a8-45cb-bfae-11ab0796d998
+		lineageTag: ade594e1-a5d7-4624-89fd-80abc9313fc8
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'Revenue Target' = [Last Month Revenue] * 1.05
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
-		lineageTag: ae595d54-e7b8-48dd-9ee7-67f5bea1a4c3
+		lineageTag: 6c711707-e7b0-4c3a-96c4-e2e7e96140a7
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'Profit Margin' = [Total Profit] / [Total Revenue]
 		formatString: 0.00%;-0.00%;0.00%
-		lineageTag: 58baaa5a-7d68-4000-a8cc-f7380691abfd
+		lineageTag: ecd38f3b-7c15-41fc-9957-2ab5179dda25
 
 	measure 'Last Month Transactions' = CALCULATE([Total Transactions], DATEADD('Calendar'[date],-1,MONTH))
 		formatString: #,0
-		lineageTag: a7cc8526-dc56-445b-89f5-a2613b9c590f
+		lineageTag: 2da74802-340b-4b78-86b8-2330c2d76414
 
 	measure 'Last Month Profit' = CALCULATE([Total Profit], DATEADD('Calendar'[date],-1,MONTH))
-		lineageTag: 8dfc2650-00ba-4e56-8a9a-31f1185a06f8
+		lineageTag: 5f0e1c4d-504b-46b7-b828-a9b8a02f7f10
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -80,7 +80,7 @@ table Transaction_Data
 		dataType: dateTime
 		isHidden
 		formatString: Short Date
-		lineageTag: b623848b-8843-49b7-b770-cc26096068bd
+		lineageTag: 89ca3681-09e5-4dd6-a896-8c4b1e70d238
 		summarizeBy: none
 		sourceColumn: transaction_date
 
@@ -94,7 +94,7 @@ table Transaction_Data
 		dataType: dateTime
 		isHidden
 		formatString: Short Date
-		lineageTag: e798c0f1-dde0-449f-b7d9-d828ee251a7b
+		lineageTag: def24c5e-7e38-4048-b8de-b0389d35479a
 		summarizeBy: none
 		sourceColumn: stock_date
 
@@ -108,7 +108,7 @@ table Transaction_Data
 		dataType: int64
 		isHidden
 		formatString: 0
-		lineageTag: 6ea10b32-c351-44a9-b5b5-4a3a7b25d03e
+		lineageTag: 8e66b049-edf1-4b44-8685-7fef87aaaf77
 		summarizeBy: none
 		sourceColumn: product_id
 
@@ -120,7 +120,7 @@ table Transaction_Data
 		dataType: int64
 		isHidden
 		formatString: 0
-		lineageTag: 38b756d9-5520-414f-bfa6-0e7a5d4312c1
+		lineageTag: 9d065ff5-8f39-4912-b0ef-37caafe3ab59
 		summarizeBy: none
 		sourceColumn: customer_id
 
@@ -132,7 +132,7 @@ table Transaction_Data
 		dataType: int64
 		isHidden
 		formatString: 0
-		lineageTag: aa74c810-7412-4632-bc09-9c7d1f2dae99
+		lineageTag: 04d9d360-cd5a-4c54-8faa-f4f2f403b5f7
 		summarizeBy: none
 		sourceColumn: store_id
 
@@ -143,7 +143,7 @@ table Transaction_Data
 	column quantity
 		dataType: int64
 		formatString: 0
-		lineageTag: 60b72eba-15b0-4d85-9372-490fb977ece5
+		lineageTag: 18e40f43-179f-41ba-aacf-063d2a640567
 		summarizeBy: sum
 		sourceColumn: quantity
 

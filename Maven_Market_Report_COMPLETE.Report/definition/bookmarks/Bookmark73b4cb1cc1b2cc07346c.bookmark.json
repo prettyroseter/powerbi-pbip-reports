@@ -81,7 +81,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "7301140653dc37112995",
+                  "name": "b020533f37f1e7dbc76d",
                   "type": "TopN",
                   "filter": {
                     "Version": 2,
@@ -183,7 +183,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "cb27204caed09679339b",
+                  "name": "9f53ec3cedb741373c52",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -198,7 +198,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "8d25baa00b073dd0545b",
+                  "name": "cab4e19e4b5f08e63a3c",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -213,7 +213,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "d26f5742ba7a7021b368",
+                  "name": "5f2553f4dc783c29df60",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -228,7 +228,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "ecb87850ec0fba97efb0",
+                  "name": "0c2aea91f5e64e9c1300",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -313,66 +313,11 @@
               ]
             }
           },
-          "37f884ca93c09313207a": {
-            "filters": {
-              "byExpr": [
-                {
-                  "name": "73080a8488220e60f278",
-                  "type": "Categorical",
-                  "expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Calendar"
-                        }
-                      },
-                      "Property": "Start of Month"
-                    }
-                  },
-                  "howCreated": 0
-                },
-                {
-                  "name": "ed9628dfbfd53736397e",
-                  "type": "Advanced",
-                  "expression": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Transaction_Data"
-                        }
-                      },
-                      "Property": "Total Transactions"
-                    }
-                  },
-                  "howCreated": 0
-                },
-                {
-                  "name": "e7a260b9f23947ca6457",
-                  "type": "Advanced",
-                  "expression": {
-                    "Measure": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Transaction_Data"
-                        }
-                      },
-                      "Property": "Last Month Transactions"
-                    }
-                  },
-                  "howCreated": 0
-                }
-              ]
-            },
-            "singleVisual": {
-              "visualType": "kpi",
-              "objects": {}
-            }
-          },
           "c5b47b49addd2540725e": {
             "filters": {
               "byExpr": [
                 {
-                  "name": "637af7bcfb4026836fb3",
+                  "name": "517b7d03a736232b7853",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -387,7 +332,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "fd5f44ab7ac85bad4f48",
+                  "name": "eda70a82e2f9e6ba561b",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -402,7 +347,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "56d2b6d2e92db8bce297",
+                  "name": "3d2ca401ba7f3a8abc40",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -427,7 +372,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "d8755f74dcad3398824f",
+                  "name": "0bd7cd0c19e2f211f99a",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -442,7 +387,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "c5a5ff0346320d837cb7",
+                  "name": "85963b91ed76d47b02bc",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -503,7 +448,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "e727e664401f12ba4962",
+                  "name": "c0cfc02147b818b696f0",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -518,7 +463,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "76610e9ce2de1dfcba17",
+                  "name": "4117aeebb2358010458f",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -674,7 +619,7 @@
                   "howCreated": 1
                 },
                 {
-                  "name": "349155fd088976ca31da",
+                  "name": "6531f14a9ddcc5c15a0a",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -689,7 +634,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "51523fbb4932b082c1cc",
+                  "name": "6cb606fc3af5ad4426c6",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -729,7 +674,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "391c492fca4014156999",
+                  "name": "0c32e0a25d192540b627",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -744,7 +689,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "a0118676f741137497ab",
+                  "name": "e4fee5de9fd5970888cc",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -759,7 +704,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "833cb26bd272b7f3ed97",
+                  "name": "25eea6e34ee901f1f3a9",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -796,7 +741,7 @@
             "filters": {
               "byExpr": [
                 {
-                  "name": "ce36cb36e979371701ad",
+                  "name": "a6959e9169415a1fc2ca",
                   "type": "Advanced",
                   "expression": {
                     "Measure": {
@@ -811,7 +756,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "0aa6ab6a49d7d0c6767f",
+                  "name": "22f69da887ba5ec56802",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -826,7 +771,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "dfc257eb00f6aa441437",
+                  "name": "75ac08602d19a97dabc5",
                   "type": "Categorical",
                   "expression": {
                     "Column": {
@@ -841,7 +786,7 @@
                   "howCreated": 0
                 },
                 {
-                  "name": "bb1a65083620375d8350",
+                  "name": "51fa143b3b14db00b1fc",
                   "type": "Categorical",
                   "expression": {
                     "Column": {

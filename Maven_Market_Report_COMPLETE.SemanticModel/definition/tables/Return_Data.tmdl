@@ -1,31 +1,31 @@
 table Return_Data
-	lineageTag: 631b219a-9fb9-45e0-9733-42bae69484a7
+	lineageTag: c2dec22f-0a2e-4103-a4b6-75b92401d512
 
 	measure 'Quantity Returned' = SUM(Return_Data[quantity])
 		formatString: 0
-		lineageTag: 05cea1b8-072d-4f6b-8af4-12df556c90a6
+		lineageTag: a62c3ed1-a432-40e3-9f74-baf0bc5988b3
 
 	measure 'Total Returns' = COUNTROWS(Return_Data)
 		formatString: 0
-		lineageTag: 90df6dc3-241b-4ea1-b540-49b8680c9d56
+		lineageTag: de0ffdf0-4a25-4ff9-8a7d-d14b5e5d5997
 
 	measure 'Return Rate' = [Quantity Returned] / [Quantity Sold]
 		formatString: 0.00%;-0.00%;0.00%
-		lineageTag: 81da9136-aeee-4662-9f1c-b1dd9dbdad10
+		lineageTag: 6b2f8871-aa84-4a34-8394-d62e8aef0696
 
 	measure 'All Returns' = CALCULATE([Total Returns], ALL(Return_Data))
 		formatString: 0
-		lineageTag: 4503fd68-252b-4d7f-9f82-00bb3a9b945f
+		lineageTag: b8898b54-6328-473a-909b-208c225b951b
 
 	measure 'Last Month Returns' = CALCULATE([Total Returns], DATEADD('Calendar'[date],-1,MONTH))
 		formatString: 0
-		lineageTag: 974eadd4-bc11-4c48-8226-84d91a17b0fc
+		lineageTag: 29fbb518-79a4-417a-bf50-4ba7d6509cfe
 
 	column return_date
 		dataType: dateTime
 		isHidden
 		formatString: Short Date
-		lineageTag: 9f116b10-a860-4af0-b253-028e1cbe0689
+		lineageTag: 527c5b2f-63bf-40df-8039-540d3956314f
 		summarizeBy: none
 		sourceColumn: return_date
 
@@ -39,7 +39,7 @@ table Return_Data
 		dataType: int64
 		isHidden
 		formatString: 0
-		lineageTag: 636aab63-9d2d-48d2-846a-82133ee2cb04
+		lineageTag: 50f9b8f4-82ba-4da5-b94d-d815043c9b83
 		summarizeBy: none
 		sourceColumn: product_id
 
@@ -51,7 +51,7 @@ table Return_Data
 		dataType: int64
 		isHidden
 		formatString: 0
-		lineageTag: 866cfc81-9659-4605-b5fe-d8fa095fc220
+		lineageTag: e12278c9-3179-4398-a981-4e18ce735b1b
 		summarizeBy: none
 		sourceColumn: store_id
 
@@ -62,7 +62,7 @@ table Return_Data
 	column quantity
 		dataType: int64
 		formatString: 0
-		lineageTag: b2b76268-2631-4aec-9210-b92520bf1044
+		lineageTag: f01c62c7-0ba1-4fbc-9ffd-b17400318d86
 		summarizeBy: sum
 		sourceColumn: quantity
 

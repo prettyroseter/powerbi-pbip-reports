@@ -1,15 +1,15 @@
 table Products
 	excludeFromModelRefresh
-	lineageTag: 655b038d-e922-496e-a652-abe7ed320feb
+	lineageTag: 88b38a33-9696-4dac-b60f-dc71cdd33b60
 
 	measure 'Unique Products' = DISTINCTCOUNT(Products[product_name])
 		formatString: 0
-		lineageTag: 55cb7939-e05d-4ae4-9497-fe845bb0962a
+		lineageTag: 50409af8-41fd-4f20-9eba-2f680ae4d6d8
 
 	column product_id
 		dataType: int64
 		formatString: 0
-		lineageTag: 303162f1-b7e5-4617-808e-34a927798b4f
+		lineageTag: f186fe18-9b76-49bc-8867-0b7cd6fc8fb6
 		summarizeBy: none
 		sourceColumn: product_id
 
@@ -17,7 +17,7 @@ table Products
 
 	column product_brand
 		dataType: string
-		lineageTag: 456f3da4-545c-4027-97e5-d2205f96ceba
+		lineageTag: 085ab79f-ba5b-4fef-82d5-06e2b3cbe182
 		summarizeBy: none
 		sourceColumn: product_brand
 
@@ -27,7 +27,7 @@ table Products
 
 	column product_name
 		dataType: string
-		lineageTag: 0c1a1a32-6c2a-40c4-ae38-9641d067e6a4
+		lineageTag: 6eac0b6f-4fbf-4fed-8f2b-78461e416258
 		summarizeBy: none
 		sourceColumn: product_name
 
@@ -37,7 +37,7 @@ table Products
 
 	column product_sku
 		dataType: double
-		lineageTag: ae519aa2-628c-44e0-9fad-58c177fe73fa
+		lineageTag: 251cc8f4-cf8f-421a-935c-09e21cd9f399
 		summarizeBy: sum
 		sourceColumn: product_sku
 
@@ -48,7 +48,7 @@ table Products
 	column product_retail_price
 		dataType: double
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
-		lineageTag: ca4391c8-d1b9-477e-9bee-f0567fd8f9d2
+		lineageTag: eb1300fb-41d5-4b8d-86d9-91cdfec2041e
 		summarizeBy: sum
 		sourceColumn: product_retail_price
 
@@ -59,7 +59,7 @@ table Products
 	column product_cost
 		dataType: double
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
-		lineageTag: 713bfab4-dbc9-4f7e-829c-75c4dbee7a4e
+		lineageTag: b7556364-c5ac-4a51-89b3-bc70cbe76e54
 		summarizeBy: sum
 		sourceColumn: product_cost
 
@@ -69,7 +69,7 @@ table Products
 
 	column product_weight
 		dataType: double
-		lineageTag: af8b3ce3-4384-4783-8170-aed9a8c156cb
+		lineageTag: 8441e7d1-add0-480f-9bc8-becab54247ce
 		summarizeBy: sum
 		sourceColumn: product_weight
 
@@ -80,7 +80,7 @@ table Products
 	column recyclable
 		dataType: int64
 		formatString: 0
-		lineageTag: a1862edb-9539-4575-a1b6-d5deeef78330
+		lineageTag: c95889da-f721-434d-823c-024a7198119e
 		summarizeBy: sum
 		sourceColumn: recyclable
 
@@ -89,7 +89,7 @@ table Products
 	column low_fat
 		dataType: int64
 		formatString: 0
-		lineageTag: c1ec0e8d-1ae5-448c-baec-c5be39d98a1f
+		lineageTag: 972cd989-503a-498a-b72a-3fe1686f5923
 		summarizeBy: sum
 		sourceColumn: low_fat
 
@@ -98,7 +98,7 @@ table Products
 	column discount_price
 		dataType: decimal
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
-		lineageTag: bbec0585-7311-49fb-96c5-878654c56b92
+		lineageTag: 2e56037a-1246-4b86-8fa8-ee8324cbb876
 		summarizeBy: sum
 		sourceColumn: discount_price
 
@@ -107,7 +107,7 @@ table Products
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	column Price_Tier = IF(Products[product_retail_price]>3, "High", IF(Products[product_retail_price]>1, "Mid", "Low"))
-		lineageTag: eed0acd8-61e1-442b-8f08-bb31c8d69c12
+		lineageTag: a1b8aa3f-48e1-4f54-9063-226c12c6ad4a
 		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic

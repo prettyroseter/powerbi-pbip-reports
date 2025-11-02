@@ -1,11 +1,11 @@
 table Regions
 	excludeFromModelRefresh
-	lineageTag: 6d018b5d-c37a-4de8-af28-b6cfaea9685b
+	lineageTag: 5d7429f8-6ff5-468b-a208-1873ebb70654
 
 	column region_id
 		dataType: int64
 		formatString: 0
-		lineageTag: 32a52ce8-cb1b-44b6-b832-dc01659a14fb
+		lineageTag: 1c90402d-6ec4-44d0-8319-c80bdf358e4c
 		summarizeBy: none
 		sourceColumn: region_id
 
@@ -13,7 +13,7 @@ table Regions
 
 	column sales_district
 		dataType: string
-		lineageTag: ef71605e-b26e-45d5-8107-e8dc5f065238
+		lineageTag: a09717ad-07cc-4b75-a9ea-9dfc69fa2da4
 		summarizeBy: none
 		sourceColumn: sales_district
 
@@ -23,7 +23,7 @@ table Regions
 
 	column sales_region
 		dataType: string
-		lineageTag: 33ed7cbc-d6d0-4526-9e0f-91453e316e04
+		lineageTag: e7016db5-71a7-4e42-8d6d-e528a60b69eb
 		summarizeBy: none
 		sourceColumn: sales_region
 
