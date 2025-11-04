@@ -1,0 +1,193 @@
+table Stores
+	excludeFromModelRefresh
+	lineageTag: 7a393748-7f88-40d5-878d-674bb2a510c3
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b1e5062-83b8-4a87-ae7c-6b474197bf7f
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 654f75d2-f7b8-4b9a-b1ae-7be1ea8c19e0
+		summarizeBy: none
+		sourceColumn: region_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_type
+		dataType: string
+		lineageTag: 0d7b0165-8905-4fa3-a65b-14b8c13c9a0f
+		summarizeBy: none
+		sourceColumn: store_type
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column store_name
+		dataType: string
+		lineageTag: 2a699b8d-b289-49b2-bee2-e6cd01189cf2
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column store_street_address
+		dataType: string
+		lineageTag: 032b2018-7ebc-4c46-bb7d-d91bc1d68c3c
+		summarizeBy: none
+		sourceColumn: store_street_address
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column store_city
+		dataType: string
+		lineageTag: acc6cbb2-fc41-49b3-9e9d-bb9b74a7ae8b
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: store_city
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column store_state
+		dataType: string
+		lineageTag: c4061cb7-b05c-4b10-a61c-8bc1572d6610
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: store_state
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column store_country
+		dataType: string
+		lineageTag: 35016cc5-626d-423a-bb3a-443a4482d672
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: store_country
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column store_phone
+		dataType: string
+		lineageTag: a7cc18e9-2a39-49e4-8f7d-feabb96c8fcb
+		summarizeBy: none
+		sourceColumn: store_phone
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column first_opened_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 1be9a649-d981-44d4-a7ee-9ff3f72cbe43
+		summarizeBy: none
+		sourceColumn: first_opened_date
+
+		variation Variation
+			isDefault
+			relationship: bec8aa12-8675-4081-9112-574ebd9187b7
+			defaultHierarchy: LocalDateTable_726d5368-f7a9-427d-a020-0e3b1fd416d2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column last_remodel_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 0a4c9f13-55e0-4b72-a0f7-9449b1c914f1
+		summarizeBy: none
+		sourceColumn: last_remodel_date
+
+		variation Variation
+			isDefault
+			relationship: 00a3f6f0-f85a-4e72-9991-4e22976e9c9b
+			defaultHierarchy: LocalDateTable_1456dd8a-89a4-4c15-97fa-14ed96222686.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column total_sqft
+		dataType: int64
+		formatString: 0
+		lineageTag: bd9746b9-c1b4-42d4-9242-ba7e4dc99227
+		summarizeBy: sum
+		sourceColumn: total_sqft
+
+		annotation SummarizationSetBy = Automatic
+
+	column grocery_sqft
+		dataType: int64
+		formatString: 0
+		lineageTag: 043e939f-34c6-40b6-a927-6bef12ec3a80
+		summarizeBy: sum
+		sourceColumn: grocery_sqft
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_address
+		dataType: string
+		lineageTag: e140eac7-9ef4-40c7-84dc-ece7a13cb0eb
+		dataCategory: Address
+		summarizeBy: none
+		sourceColumn: full_address
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column area_code
+		dataType: string
+		lineageTag: 61aa735a-9e3a-43f6-b9e8-458e6ab020c6
+		summarizeBy: none
+		sourceColumn: area_code
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Years_Since_Remodel = DATEDIFF(Stores[last_remodel_date],TODAY(),YEAR)
+		formatString: 0
+		lineageTag: 79262ab2-92ba-47f9-8785-2df3870841d3
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Stores-0fd6072a-a071-4516-80be-8f313408c221 = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Grace\Official\interviewquesndans\pbip\MavenMarket_Stores.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"store_id", Int64.Type}, {"region_id", Int64.Type}, {"store_type", type text}, {"store_name", type text}, {"store_street_address", type text}, {"store_city", type text}, {"store_state", type text}, {"store_country", type text}, {"store_phone", type text}, {"first_opened_date", type date}, {"last_remodel_date", type date}, {"total_sqft", Int64.Type}, {"grocery_sqft", Int64.Type}}),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Changed Type", "full_address", each Text.Combine({[store_street_address], [store_city], [store_state]}, ", "), type text),
+				    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Inserted Merged Column", "Text Before Delimiter", each Text.BeforeDelimiter([store_phone], "-"), type text),
+				    #"Renamed Columns" = Table.RenameColumns(#"Inserted Text Before Delimiter",{{"Text Before Delimiter", "area_code"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

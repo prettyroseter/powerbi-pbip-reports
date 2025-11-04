@@ -1,0 +1,45 @@
+expression 'Sample File' =
+		let
+		    Source = Folder.Files("D:\Grace\Official\interviewquesndans\pbip\mavenmarket_transactions"),
+		    Navigation1 = Source{0}[Content]
+		in
+		    Navigation1
+	lineageTag: df4505f3-271c-433e-8072-5afe370b208b
+	queryGroup: 'Transform File from MavenMarket_Transactions\Sample Query'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Binary
+
+expression 'Sample File Parameter1' = #"Sample File" meta [IsParameterQuery=true, BinaryIdentifier=#"Sample File", Type="Binary", IsParameterQueryRequired=true]
+	lineageTag: bd68ae2b-c063-4512-8370-85244f69370c
+	queryGroup: 'Transform File from MavenMarket_Transactions\Sample Query'
+
+	annotation PBI_ResultType = Binary
+
+expression 'Transform Sample File from MavenMarket_Transactions' =
+		let
+		    Source = Csv.Document(#"Sample File Parameter1",[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+		in
+		    #"Promoted Headers"
+	lineageTag: 379ce106-2972-4f14-8531-3540acfb486b
+	queryGroup: 'Transform File from MavenMarket_Transactions'
+
+	annotation PBI_ResultType = Table
+
+expression 'Transform File from MavenMarket_Transactions' =
+		let
+		    Source = (#"Sample File Parameter1" as binary) => let
+		    Source = Csv.Document(#"Sample File Parameter1",[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+		in
+		    #"Promoted Headers"
+		in
+		    Source
+	mAttributes: [ FunctionQueryBinding = "{""exemplarFormulaName"":""Transform Sample File from MavenMarket_Transactions""}" ]
+	lineageTag: 9a8dc120-96cb-4b05-bd7f-3a646d6455f4
+	queryGroup: 'Transform File from MavenMarket_Transactions'
+
+	annotation PBI_ResultType = Function
+
