@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.3.0/schema.json",
+  "name": "4afaf61906a7c6751904",
+  "position": {
+    "x": 210.47363717605003,
+    "y": 414.08400357462017,
+    "z": 2000,
+    "height": 74.3521000893655,
+    "width": 973.21185210008935
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Plato ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontStyle": "italic",
+                      "fontSize": "21pt"
+                    }
+                  },
+                  {
+                    "value": "products drove the strongest overall profit margin (",
+                    "textStyle": {
+                      "fontStyle": "italic",
+                      "fontSize": "21pt"
+                    }
+                  },
+                  {
+                    "value": "63.55%",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontStyle": "italic",
+                      "fontSize": "21pt"
+                    }
+                  },
+                  {
+                    "value": ") in 1998 ",
+                    "textStyle": {
+                      "fontStyle": "italic",
+                      "fontSize": "21pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

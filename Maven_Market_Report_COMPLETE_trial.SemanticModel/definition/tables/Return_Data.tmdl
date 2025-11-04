@@ -1,0 +1,84 @@
+table Return_Data
+	lineageTag: 015c9131-e8a0-45e2-8256-dcaee41e19bb
+
+	measure 'Quantity Returned' = SUM(Return_Data[quantity])
+		formatString: 0
+		lineageTag: dec0df56-9588-4bee-9068-229c694b4b0b
+
+	measure 'Total Returns' = COUNTROWS(Return_Data)
+		formatString: 0
+		lineageTag: 6d4aeb1f-2f09-4bf9-9e6e-aee0e13e7dce
+
+	measure 'Return Rate' = [Quantity Returned] / [Quantity Sold]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8d2eab79-ecb6-4cb2-be72-fa02732f28da
+
+	measure 'All Returns' = CALCULATE([Total Returns], ALL(Return_Data))
+		formatString: 0
+		lineageTag: c5607a52-d225-48ec-98df-1fa807030563
+
+	measure 'Last Month Returns' = CALCULATE([Total Returns], DATEADD('Calendar'[date],-1,MONTH))
+		formatString: 0
+		lineageTag: 3aa2fcf4-56c6-413f-a791-a960345d9a9a
+
+	column return_date
+		dataType: dateTime
+		isHidden
+		formatString: Short Date
+		lineageTag: 6febf545-6680-4e81-b709-2f3925be9c99
+		summarizeBy: none
+		sourceColumn: return_date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column product_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a034047c-fa71-471f-870a-a386f0aca26e
+		summarizeBy: none
+		sourceColumn: product_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dd5da90a-213d-4716-8b17-97844de894ef
+		summarizeBy: none
+		sourceColumn: store_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 4220ff6d-0145-4b23-89e1-b75d87ab73a4
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Return_Data-b0adeb10-1025-4768-b080-9727e32d2118 = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Grace\Official\interviewquesndans\pbip\MavenMarket_Returns_1997-1998.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"return_date", type date}, {"product_id", Int64.Type}, {"store_id", Int64.Type}, {"quantity", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

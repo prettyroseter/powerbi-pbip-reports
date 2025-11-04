@@ -1,0 +1,136 @@
+table Products
+	excludeFromModelRefresh
+	lineageTag: 0588b058-1950-42f7-9708-746da95c69be
+
+	measure 'Unique Products' = DISTINCTCOUNT(Products[product_name])
+		formatString: 0
+		lineageTag: e85b8862-3ec8-4927-afca-96f9755e2134
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c102acc2-ba49-498d-ab08-593793a41f15
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_brand
+		dataType: string
+		lineageTag: cb275eaf-1d06-4277-9f36-8bac0e1a3dae
+		summarizeBy: none
+		sourceColumn: product_brand
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column product_name
+		dataType: string
+		lineageTag: 5c38eaa6-26f1-452c-b0a1-316d50617183
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column product_sku
+		dataType: double
+		lineageTag: e8e63314-c448-4e35-b988-0027fe9db98d
+		summarizeBy: sum
+		sourceColumn: product_sku
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_retail_price
+		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 3fa4a19a-60fd-4f86-bf6e-303139a863ba
+		summarizeBy: sum
+		sourceColumn: product_retail_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column product_cost
+		dataType: double
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: b9f062b1-7d9f-4e90-a0d0-88d7b43a4fff
+		summarizeBy: sum
+		sourceColumn: product_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column product_weight
+		dataType: double
+		lineageTag: beb54f9c-a32b-4fcb-8a60-82d731ec0e28
+		summarizeBy: sum
+		sourceColumn: product_weight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column recyclable
+		dataType: double
+		formatString: 0
+		lineageTag: 7df0be72-b985-47d2-a2d8-a526744a4ec1
+		summarizeBy: sum
+		sourceColumn: recyclable
+
+		annotation SummarizationSetBy = Automatic
+
+	column low_fat
+		dataType: double
+		formatString: 0
+		lineageTag: 23c69fd8-2911-4ba7-a815-70653252e120
+		summarizeBy: sum
+		sourceColumn: low_fat
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount_price
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: eb7c4c29-1b16-4ff2-8f26-36c36913fbe1
+		summarizeBy: sum
+		sourceColumn: discount_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column Price_Tier = IF(Products[product_retail_price]>3, "High", IF(Products[product_retail_price]>1, "Mid", "Low"))
+		lineageTag: 229e6957-7c43-48d7-8c92-6fe8ebee3b28
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition Products-b6c50b4f-ce8d-4c1d-8594-51e91b244b18 = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Grace\Official\interviewquesndans\pbip\MavenMarket_Products.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"product_id", Int64.Type}, {"product_brand", type text}, {"product_name", type text}, {"product_sku", type number}, {"product_retail_price", type number}, {"product_cost", type number}, {"product_weight", type number}, {"recyclable", Int64.Type}, {"low_fat", Int64.Type}}),
+				    #"Inserted Multiplication" = Table.AddColumn(#"Changed Type", "Multiplication", each [product_retail_price] * 0.9, type number),
+				    #"Renamed Columns" = Table.RenameColumns(#"Inserted Multiplication",{{"Multiplication", "discount_price"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"discount_price", Currency.Type}}),
+				    #"Rounded Off" = Table.TransformColumns(#"Changed Type1",{{"discount_price", each Number.Round(_, 2), Currency.Type}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Rounded Off",null,0,Replacer.ReplaceValue,{"recyclable"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value",null,0,Replacer.ReplaceValue,{"low_fat"})
+				in
+				    #"Replaced Value1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
