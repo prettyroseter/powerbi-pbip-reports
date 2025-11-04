@@ -16,11 +16,6 @@
       "source": "8087b597a038ac486040",
       "target": "f747953d205e3ae09dde",
       "type": "NoFilter"
-    },
-    {
-      "source": "8087b597a038ac486040",
-      "target": "6fd8b070065b0a35e0e3",
-      "type": "DataFilter"
     }
   ]
 }
