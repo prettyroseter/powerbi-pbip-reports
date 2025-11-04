@@ -21,11 +21,6 @@
       "source": "8087b597a038ac486040",
       "target": "6fd8b070065b0a35e0e3",
       "type": "DataFilter"
-    },
-    {
-      "source": "8087b597a038ac486040",
-      "target": "3dca6c7dc9491d8e0828",
-      "type": "DataFilter"
     }
   ]
 }
